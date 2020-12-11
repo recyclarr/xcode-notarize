@@ -116,12 +116,15 @@ const submit = async ({productPath, archivePath, primaryBundleId, username, pass
     ];
 
     if (ascProvider !== "") {
-        args.push("--asc-provider "+ascProvider);
+        args.push("--asc-provider")
+        args.push(ascProvider);
     }
 
     if (verbose === true) {
         args.push("--verbose");
     }
+
+    core.info(`running with args ${args}`);
 
     let xcrun = execa("xcrun", args, {reject: false});
 
@@ -248,6 +251,7 @@ const main = async () => {
         }
 
         const uuid = await core.group('Submitting for Notarizing', async () => {
+            core.info(`asc-provider configuration = ${configuration.ascProvider}`);
             let uuid = await submit({archivePath: archivePath, ...configuration});
             if (uuid !== null) {
                 core.info(`Submitted package for notarization. Request UUID is ${uuid}`);
