@@ -43,7 +43,7 @@ const parseConfiguration = () => {
         username: core.getInput("appstore-connect-username", {required: true}),
         password: core.getInput("appstore-connect-password", {required: true}),
         primaryBundleId: core.getInput("primary-bundle-id"),
-        ascPovider: core.getInput("ascPovider"),
+        ascPovider: core.getInput("asc-provider"),
         verbose: core.getInput("verbose") === "true",
     };
 
