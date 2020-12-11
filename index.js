@@ -36,7 +36,7 @@ const parseConfiguration = () => {
         username: core.getInput("appstore-connect-username", {required: true}),
         password: core.getInput("appstore-connect-password", {required: true}),
         primaryBundleId: core.getInput("primary-bundle-id"),
-        ascPovider: core.getInput("asc-provider"),
+        ascProvider: core.getInput("asc-provider"),
         verbose: core.getInput("verbose") === "true",
     };
 
@@ -115,7 +115,7 @@ const submit = async ({productPath, archivePath, primaryBundleId, username, pass
         "-p", password
     ];
 
-    if (ascProvider !== "") {
+    if (ascProvider !== null && ascProvider !== "") {
         args.push("--asc-provider")
         args.push(ascProvider);
     }
