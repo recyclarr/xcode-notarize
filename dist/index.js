@@ -32,7 +32,6 @@ const core = __webpack_require__(2186);
 const execa = __webpack_require__(5447);
 const plist = __webpack_require__(1933);
 
-
 const sleep = (ms) => {
     return new Promise(res => setTimeout(res, ms));
 };
@@ -44,6 +43,7 @@ const parseConfiguration = () => {
         username: core.getInput("appstore-connect-username", {required: true}),
         password: core.getInput("appstore-connect-password", {required: true}),
         primaryBundleId: core.getInput("primary-bundle-id"),
+        ascPovider: core.getInput("ascPovider"),
         verbose: core.getInput("verbose") === "true",
     };
 
@@ -77,7 +77,7 @@ const archive = async ({productPath}) => {
 };
 
 
-const submit = async ({productPath, archivePath, primaryBundleId, username, password, verbose}) => {
+const submit = async ({productPath, archivePath, primaryBundleId, username, password, ascProvider, verbose}) => {
     //
     // Make sure the product exists.
     //
@@ -121,6 +121,10 @@ const submit = async ({productPath, archivePath, primaryBundleId, username, pass
         "-u", username,
         "-p", password
     ];
+
+    if (ascProvider !== "") {
+        args.push("--asc-provider "+ascProvider);
+    }
 
     if (verbose === true) {
         args.push("--verbose");
